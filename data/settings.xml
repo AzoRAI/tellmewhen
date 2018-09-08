@@ -1,0 +1,29 @@
+<?xml version="1.1" ?>
+<settings>
+    <global>
+        <notifications>
+            <1>
+                <ability>300</ability>
+                <chat_mode>tell</chat_mode>
+                <chat_target>Shozokui</chat_target>
+                <command>input /cure target</command>
+                <format>actor used ability!</format>
+                <log_color>67</log_color>
+                <only_engaged>true</only_engaged>
+                <only_target>true</only_target>
+                <response>log|chat|sound|command</response>
+            </1>
+            <2>
+                <ability>301</ability>
+                <chat_mode>tell</chat_mode>
+                <chat_target>Shozokui</chat_target>
+                <command>input /cure target</command>
+                <format>actor used ability!</format>
+                <log_color>67</log_color>
+                <only_engaged>true</only_engaged>
+                <only_target>true</only_target>
+                <response>log|chat|sound|command</response>
+            </2>
+        </notifications>
+    </global>
+</settings>

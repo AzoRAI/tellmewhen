@@ -78,18 +78,18 @@ PAIN_SYNC_ABILITY_ID = 4096
 windower.register_event('addon command', function(command, ...)
   command = command and command:lower() or 'status'
   local args = T{...}
-  status_msg("Addon commands not supported at this time")
+  -- status_msg("Addon commands not supported at this time")
 
-  -- if command == 'status' then
-  --   windower.add_to_chat(57, inspect(settings.notifications))
-  -- elseif command == 'reload' then
-  --   config.reload(settings)
-  --   status_msg("Settings reloaded.")
-  -- elseif command == 'clear' then
-  --   settings.notifications = {}
-  --   config.save(settings)
-  --   status_msg("Notifications cleared.")
-  -- end
+  if command == 'status' then
+    windower.add_to_chat(57, inspect(settings.notifications))
+  elseif command == 'reload' then
+    config.reload(settings)
+    status_msg("Settings reloaded.")
+  elseif command == 'clear' then
+    settings.notifications = {}
+    config.save(settings)
+    status_msg("Notifications cleared.")
+  end
 end)
 
 
@@ -119,8 +119,9 @@ end
 function find_notifications_for(ability)
   local notifications = {}
 
-  for i,notification in ipairs(settings.notifications) do
-    if notification["ability"] == ability then
+  for i,notification in pairs(settings.notifications) do
+    -- windower.add_to_chat(50, notification["ability"].." <> "..ability)
+    if tostring(notification["ability"]) == tostring(ability) then
       table.insert(notifications, notification)
     end
   end
@@ -146,6 +147,7 @@ windower.register_event('incoming chunk', function(id, _, data)
     if category == 7 then
       local ability = packet["Target 1 Action 1 Param"]
       local notes = find_notifications_for(ability)
+      -- windower.add_to_chat(50, inspect(notes))
 
       for i,note in ipairs(notes) do
         local target_req_met = true
@@ -225,7 +227,7 @@ function notify_chat(note, message)
   local chat_mode = note["chat_mode"] or "party"
   local cmd = "input /"..chat_mode.." "
 
-  windower.add_to_chat(57, "DEBUG: Chat Mode ("..chat_mode..")")
+  -- windower.add_to_chat(57, "DEBUG: Chat Mode ("..chat_mode..")")
   if chat_mode == "tell" then
     if note["chat_target"] == nil or note["chat_target"] == "" then
       return
